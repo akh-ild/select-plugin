@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto$display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.app {
+  padding-top: 5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.wrap {
+  width: 500px;
+}
+
+$height: 46px;
+
+.select {
+  position: relative;
+  width: 100%;
+  &.open {
+    .select__input {
+      border-bottom: none;
+    }
+    .select__dropdown {
+      display: block;
+    }
+  }
+  &__input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: $height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    cursor: pointer;
+  }
+  &__dropdown {
+    display: none;
+    position: absolute;
+    top: $height;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow-y: auto;
+    box-shadow: 2px 3px 5px rgba($color: #000000, $alpha: 0.3);
+  }
+  &__list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  &__item {
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
