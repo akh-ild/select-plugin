@@ -17,6 +17,7 @@ $height: 46px;
 .select {
   position: relative;
   width: 100%;
+  z-index: 100;
   &.open {
     .select__input {
       border-bottom: none;
@@ -24,7 +25,21 @@ $height: 46px;
     .select__dropdown {
       display: block;
     }
+    .select__backdrop {
+      display: block;
+    }
   }
+
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: none;
+  }
+
   &__input {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -35,6 +50,7 @@ $height: 46px;
     padding: 0 15px;
     cursor: pointer;
   }
+
   &__dropdown {
     display: none;
     position: absolute;
@@ -47,21 +63,23 @@ $height: 46px;
     overflow-y: auto;
     box-shadow: 2px 3px 5px rgba($color: #000000, $alpha: 0.3);
   }
+
   &__list {
     padding: 0;
     margin: 0;
     list-style: none;
   }
+
   &__item {
     padding: 1rem;
     border-bottom: 1px solid #ccc;
     transition: background-color 0.3s;
     cursor: pointer;
     &.selected {
-      background-color: #5c5cf5;
+      background-color: #ccc;
     }
     &:hover {
-      background-color: #eee;
+      background-color: #f0f0f0;
     }
   }
 }

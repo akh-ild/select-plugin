@@ -12,6 +12,9 @@ const select =new Select('#select', {
     {id: '5', value: 'Next'},
     {id: '6', value: 'Nuxt'},
   ],
+  onSelect(item) {
+    console.log('selected item ', item);
+  }
 });
 
 window.s = select;

@@ -15,12 +15,25 @@ body {
 .select {
   position: relative;
   width: 100%;
+  z-index: 100;
 }
 .select.open .select__input {
   border-bottom: none;
 }
 .select.open .select__dropdown {
   display: block;
+}
+.select.open .select__backdrop {
+  display: block;
+}
+.select__backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  display: none;
 }
 .select__input {
   border: 1px solid #ccc;
@@ -56,10 +69,10 @@ body {
   cursor: pointer;
 }
 .select__item.selected {
-  background-color: #5c5cf5;
+  background-color: #ccc;
 }
 .select__item:hover {
-  background-color: #eee;
+  background-color: #f0f0f0;
 }
 
 /*# sourceMappingURL=/select%20plugin.e31bb0bc.css.map */

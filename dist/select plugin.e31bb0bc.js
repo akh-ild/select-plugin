@@ -146,7 +146,7 @@ var getTemplate = function getTemplate() {
     }
     return "\n      <li class=\"select__item ".concat(cls, "\" data-type=\"item\" data-id=").concat(item.id, ">").concat(item.value, "</li>\n    ");
   });
-  return "\n  <div class=\"select__input\" data-type=\"input\">\n          <span data-type=\"placeholder\">".concat(text, "</span>\n          <i class=\"fa fa-chevron-down\" data-type=\"arrow\"></i>\n        </div>\n        <div class=\"select__dropdown\">\n          <ul class=\"select__list\">\n            ").concat(items.join(''), "\n          </ul>\n        </div>\n        ");
+  return "\n      <div class=\"select__backdrop\" data-type=\"backdrop\"></div>\n      <div class=\"select__input\" data-type=\"input\">\n        <span data-type=\"placeholder\">".concat(text, "</span>\n        <i class=\"fa fa-chevron-down\" data-type=\"arrow\"></i>\n      </div>\n      <div class=\"select__dropdown\">\n        <ul class=\"select__list\">\n          ").concat(items.join(''), "\n        </ul>\n      </div>\n    ");
 };
 var _render = /*#__PURE__*/new WeakSet();
 var _setup = /*#__PURE__*/new WeakSet();
@@ -172,6 +172,8 @@ var Select = /*#__PURE__*/function () {
       } else if (type === 'item') {
         var id = event.target.dataset.id;
         this.select(id);
+      } else if (type === 'backdrop') {
+        this.close();
       }
     }
   }, {
@@ -196,6 +198,7 @@ var Select = /*#__PURE__*/function () {
         el.classList.remove('selected');
       });
       this.el.querySelector("[data-id=\"".concat(id, "\"]")).classList.add('selected');
+      this.options.onSelect ? this.options.onSelect(this.currentOption) : null;
       this.close();
     }
   }, {
@@ -321,7 +324,10 @@ var select = new _select.Select('#select', {
   }, {
     id: '6',
     value: 'Nuxt'
-  }]
+  }],
+  onSelect: function onSelect(item) {
+    console.log('selected item ', item);
+  }
 });
 window.s = select;
 },{"./select/select":"select/select.js","./select/style.scss":"select/style.scss"}],"../../../AppData/Roaming/nvm/v14.18.1/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
