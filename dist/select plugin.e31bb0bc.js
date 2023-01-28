@@ -125,15 +125,79 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Select = void 0;
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-var Select = /*#__PURE__*/_createClass(function Select() {
-  _classCallCheck(this, Select);
-});
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+var getTemplate = function getTemplate() {
+  return "\n  <div class=\"select__input\" data-type=\"input\">\n          <span>Hello select</span>\n          <i class=\"fa fa-chevron-down\" data-type=\"arrow\"></i>\n        </div>\n        <div class=\"select__dropdown\">\n          <ul class=\"select__list\">\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n          </ul>\n        </div>\n        ";
+};
+var _render = /*#__PURE__*/new WeakSet();
+var _setup = /*#__PURE__*/new WeakSet();
+var Select = /*#__PURE__*/function () {
+  function Select(selector, options) {
+    _classCallCheck(this, Select);
+    _classPrivateMethodInitSpec(this, _setup);
+    _classPrivateMethodInitSpec(this, _render);
+    this.el = document.querySelector(selector);
+    _classPrivateMethodGet(this, _render, _render2).call(this);
+    _classPrivateMethodGet(this, _setup, _setup2).call(this);
+  }
+  // Private method
+  _createClass(Select, [{
+    key: "clickHandler",
+    value: function clickHandler(event) {
+      var type = event.target.dataset.type;
+      if (type === 'input') {
+        this.toggle();
+      }
+    }
+  }, {
+    key: "isOpen",
+    get: function get() {
+      return this.el.classList.contains('open');
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.isOpen ? this.close() : this.open();
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.el.classList.add('open');
+      this.arrow.classList.remove('fa-chevron-down');
+      this.arrow.classList.add('fa-chevron-up');
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.el.classList.remove('open');
+      this.arrow.classList.remove('fa-chevron-up');
+      this.arrow.classList.add('fa-chevron-down');
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      thiis.el.removeEventListener('click', this.clickHandler);
+    }
+  }]);
+  return Select;
+}();
 exports.Select = Select;
+function _render2() {
+  this.el.classList.add('select');
+  this.el.innerHTML = getTemplate();
+}
+function _setup2() {
+  this.clickHandler = this.clickHandler.bind(this);
+  this.el.addEventListener('click', this.clickHandler);
+  this.arrow = this.el.querySelector('[data-type="arrow"]');
+}
 },{}],"../../../AppData/Roaming/nvm/v14.18.1/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 function getBundleURLCached() {
@@ -194,7 +258,8 @@ module.hot.accept(reloadCSS);
 
 var _select = require("./select/select");
 require("./select/style.scss");
-var select = new _select.Select();
+var select = new _select.Select('#select', {});
+window.s = select;
 },{"./select/select":"select/select.js","./select/style.scss":"select/style.scss"}],"../../../AppData/Roaming/nvm/v14.18.1/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -220,7 +285,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52226" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59428" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
