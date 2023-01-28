@@ -305,7 +305,7 @@ var _select = require("./select/select");
 require("./select/style.scss");
 var select = new _select.Select('#select', {
   placeholder: 'Select element',
-  selectedId: '3',
+  // selectedId: '3',
   data: [{
     id: '1',
     value: 'React'
