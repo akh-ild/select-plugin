@@ -134,7 +134,13 @@ function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclarati
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
 function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 var getTemplate = function getTemplate() {
-  return "\n  <div class=\"select__input\" data-type=\"input\">\n          <span>Hello select</span>\n          <i class=\"fa fa-chevron-down\" data-type=\"arrow\"></i>\n        </div>\n        <div class=\"select__dropdown\">\n          <ul class=\"select__list\">\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n            <li class=\"select__item\">Item</li>\n          </ul>\n        </div>\n        ";
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var placeholder = arguments.length > 1 ? arguments[1] : undefined;
+  var text = placeholder !== null && placeholder !== void 0 ? placeholder : 'Default placeholder';
+  var items = data.map(function (item) {
+    return "\n      <li class=\"select__item\" data-type=\"item\" data-id=".concat(item.id, ">").concat(item.value, "</li>\n    ");
+  });
+  return "\n  <div class=\"select__input\" data-type=\"input\">\n          <span data-type=\"placeholder\">".concat(text, "</span>\n          <i class=\"fa fa-chevron-down\" data-type=\"arrow\"></i>\n        </div>\n        <div class=\"select__dropdown\">\n          <ul class=\"select__list\">\n            ").concat(items.join(''), "\n          </ul>\n        </div>\n        ");
 };
 var _render = /*#__PURE__*/new WeakSet();
 var _setup = /*#__PURE__*/new WeakSet();
@@ -144,6 +150,8 @@ var Select = /*#__PURE__*/function () {
     _classPrivateMethodInitSpec(this, _setup);
     _classPrivateMethodInitSpec(this, _render);
     this.el = document.querySelector(selector);
+    this.options = options;
+    this.selectedId = null;
     _classPrivateMethodGet(this, _render, _render2).call(this);
     _classPrivateMethodGet(this, _setup, _setup2).call(this);
   }
@@ -154,12 +162,30 @@ var Select = /*#__PURE__*/function () {
       var type = event.target.dataset.type;
       if (type === 'input') {
         this.toggle();
+      } else if (type === 'item') {
+        var id = event.target.dataset.id;
+        this.select(id);
       }
     }
   }, {
     key: "isOpen",
     get: function get() {
       return this.el.classList.contains('open');
+    }
+  }, {
+    key: "currentOption",
+    get: function get() {
+      var _this = this;
+      return this.options.data.find(function (item) {
+        return item.id === _this.selectedId;
+      });
+    }
+  }, {
+    key: "select",
+    value: function select(id) {
+      this.selectedId = id;
+      this.placeholder.textContent = this.currentOption.value;
+      this.close();
     }
   }, {
     key: "toggle",
@@ -190,13 +216,17 @@ var Select = /*#__PURE__*/function () {
 }();
 exports.Select = Select;
 function _render2() {
+  var _this$options = this.options,
+    placeholder = _this$options.placeholder,
+    data = _this$options.data;
   this.el.classList.add('select');
-  this.el.innerHTML = getTemplate();
+  this.el.innerHTML = getTemplate(data, placeholder);
 }
 function _setup2() {
   this.clickHandler = this.clickHandler.bind(this);
   this.el.addEventListener('click', this.clickHandler);
   this.arrow = this.el.querySelector('[data-type="arrow"]');
+  this.placeholder = this.el.querySelector('[data-type="placeholder"]');
 }
 },{}],"../../../AppData/Roaming/nvm/v14.18.1/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
@@ -258,7 +288,28 @@ module.hot.accept(reloadCSS);
 
 var _select = require("./select/select");
 require("./select/style.scss");
-var select = new _select.Select('#select', {});
+var select = new _select.Select('#select', {
+  placeholder: 'Select element',
+  data: [{
+    id: '1',
+    value: 'React'
+  }, {
+    id: '2',
+    value: 'Angular'
+  }, {
+    id: '3',
+    value: 'Vue'
+  }, {
+    id: '4',
+    value: 'React Native'
+  }, {
+    id: '5',
+    value: 'Next'
+  }, {
+    id: '6',
+    value: 'Nuxt'
+  }]
+});
 window.s = select;
 },{"./select/select":"select/select.js","./select/style.scss":"select/style.scss"}],"../../../AppData/Roaming/nvm/v14.18.1/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
